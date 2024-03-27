@@ -1,0 +1,39 @@
+﻿apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: docker-build
+  namespace: pipelines-tutorial
+  labels:
+    name: docker-build
+spec:
+  triggers:
+    - type: GitHub
+      github:
+        secret: secret101
+    - type: ImageChange
+      imageChange: {}
+    - type: ConfigChange
+  source:
+    type: Git
+    git:
+      uri: 'https://github.com/openshift/ruby-hello-world.git'
+  strategy:
+    type: Docker
+    dockerStrategy:
+      from:
+        kind: ImageStreamTag
+        name: 'ruby:latest'
+        namespace: openshift
+      env:
+        - name: EXAMPLE
+          value: sample-app
+  output:
+    to:
+      kind: ImageStreamTag
+      name: 'origin-ruby-sample:latest'
+  postCommit:
+    args:
+      - bundle
+      - exec
+      - rake
+      - test
