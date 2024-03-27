@@ -13,5 +13,5 @@ USER 1001
 
 EXPOSE 8080
 
-ENTRYPOINT ["java","-jar", "/app/app.jar"]
+ENTRYPOINT ["java","-jar","/app/app.jar"]
 
