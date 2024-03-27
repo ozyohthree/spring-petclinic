@@ -2,7 +2,7 @@ FROM eclipse-temurin:17-jre-jammy
 
 USER root
 
-ARG JAR_FILE=https://github.com/ozyohthree/spring-petclinic/raw/master/jar/app.jar
+ARG JAR_FILE https://github.com/ozyohthree/spring-petclinic/raw/master/jar/app.jar
 
 ADD ${JAR_FILE} /app/app.jar
 
